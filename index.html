@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Budget Calculator | RiZen Metrics</title>
+    <meta name="description" content="Estimate your SEO investment and see how SEO, AEO, and PPC work together to maximize your marketing ROI. Free calculator from RiZen Metrics.">
+    <meta name="author" content="RiZen Metrics">
+    <meta name="copyright" content="© 2025 RiZen Metrics. All rights reserved.">
+    <link rel="canonical" href="https://www.rizenmetrics.com/seo-budget-calculator/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0f1628 0%, #1a2744 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo a {
+            color: #22d3ee;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header h1 span {
+            color: #22d3ee;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        @media (max-width: 900px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(34, 211, 238, 0.15);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title .icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(34, 211, 238, 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 10px;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #22d3ee;
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+        }
+
+        .form-group select option {
+            background: #1a2744;
+            color: #ffffff;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .option-grid.three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 500px) {
+            .option-grid, .option-grid.three-col {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option-item {
+            position: relative;
+        }
+
+        .option-item input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .option-item label {
+            display: block;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(34, 211, 238, 0.15);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            text-transform: none;
+            letter-spacing: normal;
+            color: #e2e8f0;
+        }
+
+        .option-item input:checked + label {
+            background: rgba(34, 211, 238, 0.15);
+            border-color: #22d3ee;
+            color: #22d3ee;
+        }
+
+        .option-item label:hover {
+            border-color: rgba(34, 211, 238, 0.4);
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(34, 211, 238, 0.1);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .timeline-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .timeline-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #22d3ee;
+        }
+
+        .timeline-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 8px;
+            background: rgba(34, 211, 238, 0.2);
+            border-radius: 4px;
+            outline: none;
+            margin-bottom: 16px;
+        }
+
+        .timeline-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #22d3ee;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(34, 211, 238, 0.4);
+        }
+
+        .timeline-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #22d3ee;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 10px rgba(34, 211, 238, 0.4);
+        }
+
+        .timeline-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        /* Progress Timeline Visual */
+        .progress-timeline {
+            margin-top: 24px;
+        }
+
+        .milestone {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 40px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .milestone.reached {
+            opacity: 1;
+        }
+
+        .milestone::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 28px;
+            bottom: -20px;
+            width: 2px;
+            background: rgba(34, 211, 238, 0.2);
+        }
+
+        .milestone:last-child::before {
+            display: none;
+        }
+
+        .milestone.reached::before {
+            background: rgba(34, 211, 238, 0.5);
+        }
+
+        .milestone-dot {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 26px;
+            height: 26px;
+            background: rgba(34, 211, 238, 0.1);
+            border: 2px solid rgba(34, 211, 238, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #64748b;
+            transition: all 0.3s ease;
+        }
+
+        .milestone.reached .milestone-dot {
+            background: #22d3ee;
+            border-color: #22d3ee;
+            color: #0f1628;
+        }
+
+        .milestone.current .milestone-dot {
+            background: rgba(34, 211, 238, 0.2);
+            border-color: #22d3ee;
+            color: #22d3ee;
+            box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+        }
+
+        .milestone-content h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #94a3b8;
+        }
+
+        .milestone.reached .milestone-content h4,
+        .milestone.current .milestone-content h4 {
+            color: #ffffff;
+        }
+
+        .milestone-content p {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .milestone.reached .milestone-content p,
+        .milestone.current .milestone-content p {
+            color: #94a3b8;
+        }
+
+        /* Results Panel */
+        .results-panel {
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.08) 0%, rgba(34, 211, 238, 0.02) 100%);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+        }
+
+        .budget-display {
+            text-align: center;
+            padding: 28px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .budget-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .budget-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #22d3ee;
+            line-height: 1.2;
+        }
+
+        .budget-amount span {
+            font-size: 1rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .budget-note {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 10px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #38bdf8;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .stat-card.highlight {
+            border: 1px solid rgba(34, 211, 238, 0.3);
+        }
+
+        .stat-card.highlight .stat-value {
+            color: #22d3ee;
+        }
+
+        /* Content Strategy Section */
+        .content-strategy {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .content-strategy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .content-strategy-header h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .content-strategy-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: rgba(34, 211, 238, 0.15);
+            color: #22d3ee;
+        }
+
+        .content-priorities {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .priority-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .priority-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .priority-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .priority-fill.high { background: #22d3ee; }
+        .priority-fill.medium { background: #38bdf8; }
+        .priority-fill.low { background: #64748b; }
+
+        .priority-label {
+            width: 140px;
+            font-size: 0.8rem;
+            color: #e2e8f0;
+        }
+
+        .priority-value {
+            width: 50px;
+            text-align: right;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .content-note {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            padding: 12px;
+            background: rgba(34, 211, 238, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid #22d3ee;
+        }
+
+        /* AEO Section */
+        .aeo-section {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .aeo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .aeo-header h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .aeo-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .aeo-badge.high {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+
+        .aeo-badge.medium {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+        }
+
+        .aeo-badge.low {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+        }
+
+        .aeo-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+        }
+
+        .aeo-stat strong {
+            color: #38bdf8;
+        }
+
+        .aeo-text {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* Synergy Section */
+        .synergy-section {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(34, 211, 238, 0.03) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .synergy-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .synergy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .synergy-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+        }
+
+        .synergy-item .check {
+            color: #22d3ee;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .synergy-item strong {
+            color: #38bdf8;
+        }
+
+        /* Expandable */
+        .expandable {
+            border-top: 1px solid rgba(34, 211, 238, 0.1);
+            padding-top: 16px;
+            margin-top: 8px;
+        }
+
+        .expandable-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 0;
+        }
+
+        .expandable-header h4 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #94a3b8;
+        }
+
+        .expandable-header:hover h4 {
+            color: #e2e8f0;
+        }
+
+        .expandable-header .toggle {
+            color: #22d3ee;
+            transition: transform 0.2s ease;
+            font-size: 0.8rem;
+        }
+
+        .expandable-header.open .toggle {
+            transform: rotate(180deg);
+        }
+
+        .expandable-content {
+            display: none;
+            padding: 12px 0 4px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .expandable-content.show {
+            display: block;
+        }
+
+        .expandable-content ul {
+            margin: 12px 0 0 20px;
+        }
+
+        .expandable-content li {
+            margin-bottom: 6px;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            margin-top: 28px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 36px;
+            background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
+            color: #0f1628;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 211, 238, 0.3);
+        }
+
+        .cta-note {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 12px;
+        }
+
+        /* Services Links */
+        .services-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .services-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s ease;
+        }
+
+        .services-links a:hover {
+            color: #22d3ee;
+        }
+
+        /* Benchmarks */
+        .benchmarks-section {
+            grid-column: 1 / -1;
+            margin-top: 8px;
+        }
+
+        .benchmarks-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(34, 211, 238, 0.15);
+        }
+
+        .benchmarks-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .benchmarks-table th {
+            background: rgba(34, 211, 238, 0.1);
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #22d3ee;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .benchmarks-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+        }
+
+        .benchmarks-table tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        .benchmarks-table tbody tr:hover {
+            background: rgba(34, 211, 238, 0.05);
+        }
+
+        .benchmarks-table tbody tr.active {
+            background: rgba(34, 211, 238, 0.12);
+        }
+
+        .benchmarks-table tbody tr.active td:first-child {
+            border-left: 3px solid #22d3ee;
+            padding-left: 13px;
+        }
+
+        .value-highlight {
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(34, 211, 238, 0.1);
+        }
+
+        .footer-brand {
+            margin-bottom: 16px;
+        }
+
+        .footer-brand a {
+            color: #22d3ee;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #22d3ee;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .methodology {
+            font-size: 0.75rem;
+            color: #475569;
+            margin-top: 16px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .copyright {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.75rem;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <a href="https://www.rizenmetrics.com/" target="_blank">RIZEN METRICS</a>
+            </div>
+            <h1>SEO Budget <span>Calculator</span></h1>
+            <p>See what SEO investment looks like for your industry — and how the right content strategy, AEO, and PPC work together to compound results. All plans are custom-built around your goals.</p>
+        </header>
+
+        <div class="calculator-grid">
+            <!-- Input Panel -->
+            <div class="card">
+                <h2 class="card-title">
+                    <span class="icon">📊</span>
+                    Your Business Profile
+                </h2>
+
+                <div class="form-group">
+                    <label for="industry">Industry</label>
+                    <select id="industry">
+                        <option value="">Select your industry...</option>
+                        <option value="legal">Legal Services</option>
+                        <option value="healthcare">Healthcare / Medical Practices</option>
+                        <option value="dental">Dentistry</option>
+                        <option value="home-services">Home Services (HVAC, Plumbing, Roofing)</option>
+                        <option value="real-estate">Real Estate</option>
+                        <option value="finance">Finance & Insurance</option>
+                        <option value="b2b-saas">B2B / SaaS</option>
+                        <option value="ecommerce">E-commerce / Retail</option>
+                        <option value="automotive">Automotive / Dealerships</option>
+                        <option value="restaurants">Restaurants & Hospitality</option>
+                        <option value="fitness">Fitness & Wellness</option>
+                        <option value="education">Education / Online Courses</option>
+                        <option value="manufacturing">Manufacturing / Industrial</option>
+                        <option value="professional">Professional Services</option>
+                        <option value="martial-arts">Martial Arts / Gyms</option>
+                        <option value="multi-location">Multi-location / Franchise</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Business Reach</label>
+                    <div class="option-grid">
+                        <div class="option-item">
+                            <input type="radio" name="reach" id="reach-local" value="local" checked>
+                            <label for="reach-local">Local</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="reach" id="reach-regional" value="regional">
+                            <label for="reach-regional">Regional</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="reach" id="reach-national" value="national">
+                            <label for="reach-national">National</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="reach" id="reach-ecommerce" value="ecommerce">
+                            <label for="reach-ecommerce">E-commerce</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Current Organic Traffic</label>
+                    <div class="option-grid three-col">
+                        <div class="option-item">
+                            <input type="radio" name="traffic" id="traffic-low" value="low" checked>
+                            <label for="traffic-low">&lt; 500/mo</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="traffic" id="traffic-mid" value="mid">
+                            <label for="traffic-mid">500-2K/mo</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="traffic" id="traffic-high" value="high">
+                            <label for="traffic-high">2,000+/mo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Competition Level</label>
+                    <div class="option-grid">
+                        <div class="option-item">
+                            <input type="radio" name="competition" id="comp-low" value="low">
+                            <label for="comp-low">Low</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="competition" id="comp-medium" value="medium" checked>
+                            <label for="comp-medium">Medium</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="competition" id="comp-high" value="high">
+                            <label for="comp-high">High</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="competition" id="comp-extreme" value="extreme">
+                            <label for="comp-extreme">Extreme</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Website Age</label>
+                    <div class="option-grid three-col">
+                        <div class="option-item">
+                            <input type="radio" name="age" id="age-new" value="new">
+                            <label for="age-new">&lt; 1 year</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="age" id="age-established" value="established" checked>
+                            <label for="age-established">1-3 years</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="age" id="age-mature" value="mature">
+                            <label for="age-mature">3+ years</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Slider -->
+                <div class="timeline-section">
+                    <div class="timeline-header">
+                        <h3>Investment Timeline</h3>
+                        <div class="timeline-value"><span id="timeline-months">12</span> months</div>
+                    </div>
+                    <input type="range" class="timeline-slider" id="timeline" min="6" max="24" value="12" step="1">
+                    <div class="timeline-labels">
+                        <span>6 mo</span>
+                        <span>12 mo</span>
+                        <span>18 mo</span>
+                        <span>24 mo</span>
+                    </div>
+
+                    <div class="progress-timeline" id="progress-timeline">
+                        <div class="milestone reached" data-month="3">
+                            <div class="milestone-dot">✓</div>
+                            <div class="milestone-content">
+                                <h4>Months 1-3: Foundation</h4>
+                                <p>Technical audit, on-page optimization, baseline metrics</p>
+                            </div>
+                        </div>
+                        <div class="milestone reached" data-month="6">
+                            <div class="milestone-dot">✓</div>
+                            <div class="milestone-content">
+                                <h4>Months 4-6: Traction</h4>
+                                <p>Rankings improving, content strategy live, early wins</p>
+                            </div>
+                        </div>
+                        <div class="milestone current" data-month="12">
+                            <div class="milestone-dot">●</div>
+                            <div class="milestone-content">
+                                <h4>Months 6-12: Growth</h4>
+                                <p>Significant traffic gains, leads increasing, PPC synergy kicks in</p>
+                            </div>
+                        </div>
+                        <div class="milestone" data-month="24">
+                            <div class="milestone-dot">○</div>
+                            <div class="milestone-content">
+                                <h4>Year 2+: Compounding</h4>
+                                <p>Authority established, ROI accelerates, PPC costs drop</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="card results-panel">
+                <h2 class="card-title">
+                    <span class="icon">💡</span>
+                    Your SEO Investment Estimate
+                </h2>
+
+                <div class="budget-display">
+                    <div class="budget-label">Estimated Monthly Investment</div>
+                    <div class="budget-amount" id="budget-amount">$2,000 - $4,500<span>/mo</span></div>
+                    <div class="budget-note">Custom plans built around your specific goals</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="time-to-results">4-6 mo</div>
+                        <div class="stat-label">Time to Results</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="time-to-roi">8-12 mo</div>
+                        <div class="stat-label">Time to ROI</div>
+                    </div>
+                    <div class="stat-card highlight">
+                        <div class="stat-value" id="traffic-value">$3,500</div>
+                        <div class="stat-label">Est. Traffic Value/Mo</div>
+                    </div>
+                    <div class="stat-card highlight">
+                        <div class="stat-value" id="ppc-savings">15-30%</div>
+                        <div class="stat-label">PPC Cost Reduction</div>
+                    </div>
+                </div>
+
+                <!-- Content Strategy Section -->
+                <div class="content-strategy">
+                    <div class="content-strategy-header">
+                        <h4>📝 Content Strategy Focus</h4>
+                        <span class="content-strategy-badge" id="strategy-type">Local</span>
+                    </div>
+                    <div class="content-priorities" id="content-priorities">
+                        <div class="priority-item">
+                            <span class="priority-label">Google Business Profile</span>
+                            <div class="priority-bar"><div class="priority-fill high" style="width: 95%"></div></div>
+                            <span class="priority-value">Critical</span>
+                        </div>
+                        <div class="priority-item">
+                            <span class="priority-label">Reviews & Reputation</span>
+                            <div class="priority-bar"><div class="priority-fill high" style="width: 90%"></div></div>
+                            <span class="priority-value">Critical</span>
+                        </div>
+                        <div class="priority-item">
+                            <span class="priority-label">Local Citations</span>
+                            <div class="priority-bar"><div class="priority-fill high" style="width: 85%"></div></div>
+                            <span class="priority-value">High</span>
+                        </div>
+                        <div class="priority-item">
+                            <span class="priority-label">Service/Location Pages</span>
+                            <div class="priority-bar"><div class="priority-fill medium" style="width: 75%"></div></div>
+                            <span class="priority-value">High</span>
+                        </div>
+                        <div class="priority-item">
+                            <span class="priority-label">Informational Content</span>
+                            <div class="priority-bar"><div class="priority-fill low" style="width: 40%"></div></div>
+                            <span class="priority-value">Medium</span>
+                        </div>
+                    </div>
+                    <div class="content-note" id="content-note">
+                        <strong>Good news:</strong> Only 0.01% of local queries trigger AI Overviews. Your Google Map Pack visibility and reviews matter more than competing with AI summaries.
+                    </div>
+                </div>
+
+                <!-- AEO Section -->
+                <div class="aeo-section">
+                    <div class="aeo-header">
+                        <h4>🤖 AI Search Impact</h4>
+                        <span class="aeo-badge medium" id="aeo-badge">Medium</span>
+                    </div>
+                    <div class="aeo-stat">
+                        <span>📊 <strong id="aeo-percentage">~15%</strong> of your industry's searches trigger AI Overviews</span>
+                    </div>
+                    <p class="aeo-text" id="aeo-text">
+                        Your industry has moderate exposure to AI search disruption. Informational queries are increasingly answered by AI Overviews and ChatGPT. An AEO-inclusive strategy ensures your brand is the cited source.
+                    </p>
+                </div>
+
+                <!-- SEO + PPC Synergy -->
+                <div class="synergy-section">
+                    <h4 class="synergy-title">
+                        <span>🔄</span>
+                        How SEO + AEO Fuels Better PPC
+                    </h4>
+                    <div class="synergy-list">
+                        <div class="synergy-item">
+                            <span class="check">✓</span>
+                            <span><strong>Lower CPCs:</strong> Strong organic presence improves Quality Score — you pay less per click</span>
+                        </div>
+                        <div class="synergy-item">
+                            <span class="check">✓</span>
+                            <span><strong>SERP Dominance:</strong> Owning organic + paid = 25-50% more total clicks</span>
+                        </div>
+                        <div class="synergy-item">
+                            <span class="check">✓</span>
+                            <span><strong>Smarter Targeting:</strong> SEO data reveals which keywords actually convert</span>
+                        </div>
+                        <div class="synergy-item">
+                            <span class="check">✓</span>
+                            <span><strong>Bigger Audiences:</strong> Organic traffic builds retargeting pools for cheaper PPC</span>
+                        </div>
+                        <div class="synergy-item">
+                            <span class="check">✓</span>
+                            <span><strong>Trust Before Click:</strong> AEO citations prime buyers — higher ad conversion rates</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expandables -->
+                <div class="expandable">
+                    <div class="expandable-header" onclick="toggleExpand(this)">
+                        <h4>What does this investment typically include?</h4>
+                        <span class="toggle">▼</span>
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Common deliverables at this level:</strong></p>
+                        <ul>
+                            <li>Technical SEO audit & fixes</li>
+                            <li>On-page optimization</li>
+                            <li>Content strategy & creation</li>
+                            <li>Link acquisition</li>
+                            <li>Local SEO (if applicable)</li>
+                            <li>AEO content optimization</li>
+                            <li>Monthly reporting & strategy calls</li>
+                        </ul>
+                        <p style="margin-top: 12px; font-style: italic;">Exact scope customized during your proposal.</p>
+                    </div>
+                </div>
+
+                <div class="expandable">
+                    <div class="expandable-header" onclick="toggleExpand(this)">
+                        <h4>Why does SEO take time?</h4>
+                        <span class="toggle">▼</span>
+                    </div>
+                    <div class="expandable-content">
+                        <p>Google needs to crawl, index, and build trust in your content. Links take months to affect authority. There are no shortcuts that don't carry risk.</p>
+                        <p style="margin-top: 12px;">That's also why SEO compounds — once authority is built, maintaining it costs less than building it.</p>
+                    </div>
+                </div>
+
+                <div class="expandable">
+                    <div class="expandable-header" onclick="toggleExpand(this)">
+                        <h4>What is AEO and why does it matter?</h4>
+                        <span class="toggle">▼</span>
+                    </div>
+                    <div class="expandable-content">
+                        <p><strong>Answer Engine Optimization (AEO)</strong> is the practice of optimizing content so AI systems — ChatGPT, Perplexity, Google AI Overviews, Claude — cite your brand as the source.</p>
+                        <p style="margin-top: 12px;">As of 2025, 30% of US desktop searches trigger AI Overviews, and 88% of those are informational queries. When AI Overviews appear, only 8% of users click organic results below.</p>
+                        <p style="margin-top: 12px;">Ranking #1 isn't enough anymore. You need to be the answer the AI gives.</p>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="cta-section">
+                    <a href="https://www.rizenmetrics.com/contact-us/" class="cta-button" target="_blank">Get Your Custom SEO Proposal</a>
+                    <p class="cta-note">No contracts required. No pressure.</p>
+                    <div class="services-links">
+                        <a href="https://www.rizenmetrics.com/search-engine-optimization/" target="_blank">SEO Services</a>
+                        <a href="https://www.rizenmetrics.com/answer-engine-optimization/" target="_blank">AEO Services</a>
+                        <a href="https://www.rizenmetrics.com/google-ads-agency/" target="_blank">Google Ads / PPC</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benchmarks Table -->
+            <div class="card benchmarks-section">
+                <h2 class="card-title">
+                    <span class="icon">📈</span>
+                    Industry SEO Benchmarks (2024-2025)
+                </h2>
+                <div class="benchmarks-wrapper">
+                    <table class="benchmarks-table">
+                        <thead>
+                            <tr>
+                                <th>Industry</th>
+                                <th>Monthly Investment</th>
+                                <th>Time to Page 1</th>
+                                <th>Difficulty</th>
+                                <th>AI Overview %</th>
+                            </tr>
+                        </thead>
+                        <tbody id="benchmarks-body">
+                            <tr data-industry="legal">
+                                <td>Legal Services</td>
+                                <td class="value-highlight">$3,000 - $10,000</td>
+                                <td>6-12 months</td>
+                                <td>Very High</td>
+                                <td>~28%</td>
+                            </tr>
+                            <tr data-industry="healthcare">
+                                <td>Healthcare / Medical</td>
+                                <td class="value-highlight">$2,500 - $7,500</td>
+                                <td>6-10 months</td>
+                                <td>High</td>
+                                <td>~17%</td>
+                            </tr>
+                            <tr data-industry="dental">
+                                <td>Dentistry</td>
+                                <td class="value-highlight">$1,500 - $4,000</td>
+                                <td>4-8 months</td>
+                                <td>Medium-High</td>
+                                <td>~12%</td>
+                            </tr>
+                            <tr data-industry="home-services">
+                                <td>Home Services</td>
+                                <td class="value-highlight">$1,500 - $5,000</td>
+                                <td>4-8 months</td>
+                                <td>Medium-High</td>
+                                <td>~8%</td>
+                            </tr>
+                            <tr data-industry="real-estate">
+                                <td>Real Estate</td>
+                                <td class="value-highlight">$2,000 - $6,000</td>
+                                <td>6-10 months</td>
+                                <td>High</td>
+                                <td>~10%</td>
+                            </tr>
+                            <tr data-industry="finance">
+                                <td>Finance & Insurance</td>
+                                <td class="value-highlight">$3,000 - $10,000</td>
+                                <td>8-14 months</td>
+                                <td>Very High</td>
+                                <td>~27%</td>
+                            </tr>
+                            <tr data-industry="b2b-saas">
+                                <td>B2B / SaaS</td>
+                                <td class="value-highlight">$3,000 - $10,000</td>
+                                <td>6-12 months</td>
+                                <td>High</td>
+                                <td>~22%</td>
+                            </tr>
+                            <tr data-industry="ecommerce">
+                                <td>E-commerce / Retail</td>
+                                <td class="value-highlight">$2,500 - $10,000+</td>
+                                <td>4-10 months</td>
+                                <td>Medium-High</td>
+                                <td>~12%</td>
+                            </tr>
+                            <tr data-industry="automotive">
+                                <td>Automotive / Dealers</td>
+                                <td class="value-highlight">$2,000 - $6,000</td>
+                                <td>5-10 months</td>
+                                <td>High</td>
+                                <td>~14%</td>
+                            </tr>
+                            <tr data-industry="restaurants">
+                                <td>Restaurants & Hospitality</td>
+                                <td class="value-highlight">$1,000 - $3,000</td>
+                                <td>3-6 months</td>
+                                <td>Medium</td>
+                                <td>~6%</td>
+                            </tr>
+                            <tr data-industry="fitness">
+                                <td>Fitness & Wellness</td>
+                                <td class="value-highlight">$1,000 - $3,500</td>
+                                <td>4-7 months</td>
+                                <td>Medium</td>
+                                <td>~9%</td>
+                            </tr>
+                            <tr data-industry="education">
+                                <td>Education / Courses</td>
+                                <td class="value-highlight">$2,000 - $6,000</td>
+                                <td>5-10 months</td>
+                                <td>Medium-High</td>
+                                <td>~25%</td>
+                            </tr>
+                            <tr data-industry="manufacturing">
+                                <td>Manufacturing</td>
+                                <td class="value-highlight">$2,000 - $5,000</td>
+                                <td>5-9 months</td>
+                                <td>Medium</td>
+                                <td>~5%</td>
+                            </tr>
+                            <tr data-industry="professional">
+                                <td>Professional Services</td>
+                                <td class="value-highlight">$2,000 - $6,000</td>
+                                <td>5-10 months</td>
+                                <td>Medium-High</td>
+                                <td>~18%</td>
+                            </tr>
+                            <tr data-industry="martial-arts">
+                                <td>Martial Arts / Gyms</td>
+                                <td class="value-highlight">$1,000 - $2,500</td>
+                                <td>3-6 months</td>
+                                <td>Medium</td>
+                                <td>~4%</td>
+                            </tr>
+                            <tr data-industry="multi-location">
+                                <td>Multi-location / Franchise</td>
+                                <td class="value-highlight">$5,000 - $15,000+</td>
+                                <td>6-12 months</td>
+                                <td>High</td>
+                                <td>~15%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-brand">
+                <a href="https://www.rizenmetrics.com/" target="_blank">RiZen Metrics</a> — Scranton, PA's data-driven digital marketing agency
+            </div>
+            <div class="footer-links">
+                <a href="https://www.rizenmetrics.com/search-engine-optimization/" target="_blank">SEO Services</a>
+                <a href="https://www.rizenmetrics.com/answer-engine-optimization/" target="_blank">AEO Services</a>
+                <a href="https://www.rizenmetrics.com/google-ads-agency/" target="_blank">Google Ads</a>
+                <a href="https://www.rizenmetrics.com/paid-media-management/" target="_blank">PPC Management</a>
+                <a href="https://www.rizenmetrics.com/contact-us/" target="_blank">Contact Us</a>
+            </div>
+            <p class="methodology">Estimates based on 2024-2025 industry benchmarks from Ahrefs, SEMrush, seoClarity, Credo, and agency pricing surveys. AI Overview percentages derived from seoClarity and Semrush research studies. Actual investment depends on goals, site health, and competitive landscape. This tool provides directional guidance — your custom proposal will include specific recommendations.</p>
+            <div class="copyright">
+                © 2025 RiZen Metrics. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Industry Data with AI Overview percentages based on 2024-2025 research
+        const industryData = {
+            'legal': {
+                budgetMin: 3000, budgetMax: 10000,
+                timeResults: '5-8 mo', timeROI: '10-16 mo',
+                trafficValue: 8500, ppcSavings: '20-40%',
+                aeoLevel: 'high', aeoPercentage: '~28%',
+                aeoText: 'Legal has very high AI exposure. Law & Government queries saw a 474% increase in AI Overview coverage. Users ask ChatGPT for legal advice before calling attorneys. AEO ensures your firm is cited as the authoritative source.'
+            },
+            'healthcare': {
+                budgetMin: 2500, budgetMax: 7500,
+                timeResults: '5-8 mo', timeROI: '10-14 mo',
+                trafficValue: 6200, ppcSavings: '20-35%',
+                aeoLevel: 'high', aeoPercentage: '~17%',
+                aeoText: 'Healthcare faces very high AEO impact despite YMYL concerns. Health queries gained significant AI Overview traction in 2024. Patients research symptoms via AI before booking. Being cited builds trust.'
+            },
+            'dental': {
+                budgetMin: 1500, budgetMax: 4000,
+                timeResults: '4-6 mo', timeROI: '8-12 mo',
+                trafficValue: 3200, ppcSavings: '15-30%',
+                aeoLevel: 'medium', aeoPercentage: '~12%',
+                aeoText: 'Dental has moderate AI exposure. Procedure and cost queries trigger AI summaries, but local "dentist near me" searches still favor the Map Pack. Balance AEO content with strong local SEO.'
+            },
+            'home-services': {
+                budgetMin: 1500, budgetMax: 5000,
+                timeResults: '4-6 mo', timeROI: '8-12 mo',
+                trafficValue: 4100, ppcSavings: '15-30%',
+                aeoLevel: 'low', aeoPercentage: '~8%',
+                aeoText: 'Home services benefit most from strong local SEO. Only 0.01% of local queries trigger AI Overviews. Your Google Map Pack visibility and reviews matter more than competing with AI summaries.'
+            },
+            'real-estate': {
+                budgetMin: 2000, budgetMax: 6000,
+                timeResults: '5-8 mo', timeROI: '10-14 mo',
+                trafficValue: 5400, ppcSavings: '15-25%',
+                aeoLevel: 'medium', aeoPercentage: '~10%',
+                aeoText: 'Real estate faces moderate AEO disruption. Market questions and process queries go to AI, but local expertise and listings still drive direct search. Focus on local authority.'
+            },
+            'finance': {
+                budgetMin: 3000, budgetMax: 10000,
+                timeResults: '6-10 mo', timeROI: '12-18 mo',
+                trafficValue: 9200, ppcSavings: '20-40%',
+                aeoLevel: 'high', aeoPercentage: '~27%',
+                aeoText: 'Financial services see 26.6% of searches trigger AI Overviews. Users ask about rates, comparisons, and advice. Despite YMYL, Google is rolling out AI here aggressively. AEO is critical.'
+            },
+            'b2b-saas': {
+                budgetMin: 3000, budgetMax: 10000,
+                timeResults: '5-9 mo', timeROI: '10-16 mo',
+                trafficValue: 7800, ppcSavings: '20-35%',
+                aeoLevel: 'high', aeoPercentage: '~22%',
+                aeoText: 'B2B research is heavily AI-influenced. Technology queries show high AI Overview rates. Buyers use ChatGPT and Perplexity to compare solutions. Being cited accelerates pipeline.'
+            },
+            'ecommerce': {
+                budgetMin: 2500, budgetMax: 10000,
+                timeResults: '4-7 mo', timeROI: '8-12 mo',
+                trafficValue: 8500, ppcSavings: '15-30%',
+                aeoLevel: 'low', aeoPercentage: '~12%',
+                aeoText: 'E-commerce has lower AEO risk — transactional queries (95% of commercially valuable keywords) still avoid AI Overviews. Focus on product schema, reviews, and Shopping optimization.'
+            },
+            'automotive': {
+                budgetMin: 2000, budgetMax: 6000,
+                timeResults: '5-8 mo', timeROI: '10-14 mo',
+                trafficValue: 5100, ppcSavings: '15-30%',
+                aeoLevel: 'medium', aeoPercentage: '~14%',
+                aeoText: 'Automotive research (pricing, comparisons) shows moderate AI influence. Local dealer queries still favor traditional search and maps. Balance informational content with local SEO.'
+            },
+            'restaurants': {
+                budgetMin: 1000, budgetMax: 3000,
+                timeResults: '3-5 mo', timeROI: '6-10 mo',
+                trafficValue: 1800, ppcSavings: '10-20%',
+                aeoLevel: 'low', aeoPercentage: '~6%',
+                aeoText: 'Restaurant discovery is still heavily local. "Near me" and Map Pack dominate. Reviews and GBP optimization matter most. AI Overviews rarely appear for restaurant searches.'
+            },
+            'fitness': {
+                budgetMin: 1000, budgetMax: 3500,
+                timeResults: '3-6 mo', timeROI: '7-11 mo',
+                trafficValue: 2200, ppcSavings: '10-25%',
+                aeoLevel: 'medium', aeoPercentage: '~9%',
+                aeoText: 'Fitness content (workouts, nutrition) faces moderate AI disruption. Local gym searches still favor Map Pack. Focus on local SEO + expertise content that can be cited.'
+            },
+            'education': {
+                budgetMin: 2000, budgetMax: 6000,
+                timeResults: '5-8 mo', timeROI: '10-14 mo',
+                trafficValue: 4800, ppcSavings: '15-30%',
+                aeoLevel: 'high', aeoPercentage: '~25%',
+                aeoText: 'Educational queries are prime AI targets. Science content leads AI Overview adoption. Course comparisons and how-to content are heavily cited. AEO is critical for visibility.'
+            },
+            'manufacturing': {
+                budgetMin: 2000, budgetMax: 5000,
+                timeResults: '5-8 mo', timeROI: '10-14 mo',
+                trafficValue: 3800, ppcSavings: '15-25%',
+                aeoLevel: 'low', aeoPercentage: '~5%',
+                aeoText: 'Manufacturing has low AEO exposure — queries are technical and transactional. Focus on technical SEO, product pages, spec sheets, and industry authority building.'
+            },
+            'professional': {
+                budgetMin: 2000, budgetMax: 6000,
+                timeResults: '5-8 mo', timeROI: '10-14 mo',
+                trafficValue: 4500, ppcSavings: '15-30%',
+                aeoLevel: 'medium', aeoPercentage: '~18%',
+                aeoText: 'Professional services face growing AI research in the consideration phase. Prospects use AI to compare options before contacting firms. E-E-A-T signals are critical.'
+            },
+            'martial-arts': {
+                budgetMin: 1000, budgetMax: 2500,
+                timeResults: '3-5 mo', timeROI: '6-10 mo',
+                trafficValue: 1500, ppcSavings: '10-20%',
+                aeoLevel: 'low', aeoPercentage: '~4%',
+                aeoText: 'Martial arts/gyms benefit from strong local SEO. AEO impact is very low — users searching for local training rely on maps, reviews, and GBP. Prioritize local presence.'
+            },
+            'multi-location': {
+                budgetMin: 5000, budgetMax: 15000,
+                timeResults: '6-10 mo', timeROI: '12-18 mo',
+                trafficValue: 12000, ppcSavings: '20-35%',
+                aeoLevel: 'medium', aeoPercentage: '~15%',
+                aeoText: 'Multi-location needs scaled local SEO across all locations + brand-level AEO strategy. AI increasingly summarizes franchise comparisons. Balance local and national approaches.'
+            }
+        };
+
+        // Content strategies by business reach
+        const contentStrategies = {
+            local: {
+                badge: 'Local Focus',
+                note: '<strong>Good news:</strong> Only 0.01% of local queries trigger AI Overviews. Your Google Map Pack visibility and reviews matter more than competing with AI summaries.',
+                priorities: [
+                    { label: 'Google Business Profile', width: 95, level: 'high', value: 'Critical' },
+                    { label: 'Reviews & Reputation', width: 90, level: 'high', value: 'Critical' },
+                    { label: 'Local Citations (NAP)', width: 85, level: 'high', value: 'High' },
+                    { label: 'Service/Location Pages', width: 75, level: 'medium', value: 'High' },
+                    { label: 'Informational Content', width: 40, level: 'low', value: 'Medium' }
+                ]
+            },
+            regional: {
+                badge: 'Regional Expansion',
+                note: '<strong>Hybrid approach:</strong> You need strong local SEO for each target market plus broader content to build regional authority. More informational content becomes important.',
+                priorities: [
+                    { label: 'Location-Specific Pages', width: 90, level: 'high', value: 'Critical' },
+                    { label: 'Google Business Profile(s)', width: 85, level: 'high', value: 'Critical' },
+                    { label: 'Regional Content/Blog', width: 80, level: 'high', value: 'High' },
+                    { label: 'Reviews & Reputation', width: 75, level: 'medium', value: 'High' },
+                    { label: 'Link Building', width: 70, level: 'medium', value: 'High' }
+                ]
+            },
+            national: {
+                badge: 'National Authority',
+                note: '<strong>Content is king:</strong> 88% of AI Overviews appear for informational queries. You need comprehensive, citable content that establishes expertise and gets referenced by AI.',
+                priorities: [
+                    { label: 'Informational Content', width: 95, level: 'high', value: 'Critical' },
+                    { label: 'AEO Optimization', width: 90, level: 'high', value: 'Critical' },
+                    { label: 'Authority Link Building', width: 85, level: 'high', value: 'High' },
+                    { label: 'E-E-A-T Signals', width: 80, level: 'high', value: 'High' },
+                    { label: 'Technical SEO', width: 70, level: 'medium', value: 'High' }
+                ]
+            },
+            ecommerce: {
+                badge: 'E-commerce',
+                note: '<strong>Transaction-focused:</strong> 95% of high-CPC keywords avoid AI Overviews. Focus on product schema, category optimization, and shopping feeds. Informational content supports but doesn\'t lead.',
+                priorities: [
+                    { label: 'Product Schema/Data', width: 95, level: 'high', value: 'Critical' },
+                    { label: 'Category Page SEO', width: 90, level: 'high', value: 'Critical' },
+                    { label: 'Technical SEO/Speed', width: 85, level: 'high', value: 'High' },
+                    { label: 'Reviews & UGC', width: 80, level: 'high', value: 'High' },
+                    { label: 'Supporting Content', width: 50, level: 'medium', value: 'Medium' }
+                ]
+            }
+        };
+
+        const multipliers = {
+            reach: { local: 1, regional: 1.3, national: 1.8, ecommerce: 1.5 },
+            competition: { low: 0.8, medium: 1, high: 1.3, extreme: 1.6 },
+            age: { new: 1.2, established: 1, mature: 0.85 },
+            traffic: { low: 1, mid: 0.95, high: 0.9 }
+        };
+
+        function calculate() {
+            const industry = document.getElementById('industry').value;
+            const reach = document.querySelector('input[name="reach"]:checked').value;
+            const competition = document.querySelector('input[name="competition"]:checked').value;
+            const age = document.querySelector('input[name="age"]:checked').value;
+            const traffic = document.querySelector('input[name="traffic"]:checked').value;
+            const timeline = parseInt(document.getElementById('timeline').value);
+
+            document.getElementById('timeline-months').textContent = timeline;
+            updateMilestones(timeline);
+            updateContentStrategy(reach);
+
+            document.querySelectorAll('#benchmarks-body tr').forEach(row => {
+                row.classList.toggle('active', row.dataset.industry === industry);
+            });
+
+            if (!industry) {
+                document.getElementById('budget-amount').innerHTML = '$2,000 - $4,500<span>/mo</span>';
+                return;
+            }
+
+            const data = industryData[industry];
+            const mult = multipliers.reach[reach] * multipliers.competition[competition] * 
+                        multipliers.age[age] * multipliers.traffic[traffic];
+
+            const minBudget = Math.round(data.budgetMin * mult / 100) * 100;
+            const maxBudget = Math.round(data.budgetMax * mult / 100) * 100;
+
+            document.getElementById('budget-amount').innerHTML = 
+                `$${minBudget.toLocaleString()} - $${maxBudget.toLocaleString()}<span>/mo</span>`;
+            document.getElementById('time-to-results').textContent = data.timeResults;
+            document.getElementById('time-to-roi').textContent = data.timeROI;
+            document.getElementById('traffic-value').textContent = '$' + data.trafficValue.toLocaleString();
+            document.getElementById('ppc-savings').textContent = data.ppcSavings;
+
+            // Update AEO section
+            const badge = document.getElementById('aeo-badge');
+            badge.textContent = data.aeoLevel.charAt(0).toUpperCase() + data.aeoLevel.slice(1);
+            badge.className = 'aeo-badge ' + data.aeoLevel;
+            document.getElementById('aeo-percentage').textContent = data.aeoPercentage;
+            document.getElementById('aeo-text').textContent = data.aeoText;
+        }
+
+        function updateContentStrategy(reach) {
+            const strategy = contentStrategies[reach];
+            document.getElementById('strategy-type').textContent = strategy.badge;
+            document.getElementById('content-note').innerHTML = strategy.note;
+
+            const prioritiesContainer = document.getElementById('content-priorities');
+            prioritiesContainer.innerHTML = strategy.priorities.map(p => `
+                <div class="priority-item">
+                    <span class="priority-label">${p.label}</span>
+                    <div class="priority-bar"><div class="priority-fill ${p.level}" style="width: ${p.width}%"></div></div>
+                    <span class="priority-value">${p.value}</span>
+                </div>
+            `).join('');
+        }
+
+        function updateMilestones(months) {
+            document.querySelectorAll('.milestone').forEach(m => {
+                const month = parseInt(m.dataset.month);
+                m.classList.remove('reached', 'current');
+                
+                if (months >= month + 3) {
+                    m.classList.add('reached');
+                    m.querySelector('.milestone-dot').textContent = '✓';
+                } else if (months >= month - 3) {
+                    m.classList.add('current');
+                    m.querySelector('.milestone-dot').textContent = '●';
+                } else {
+                    m.querySelector('.milestone-dot').textContent = '○';
+                }
+            });
+        }
+
+        function toggleExpand(header) {
+            header.classList.toggle('open');
+            header.nextElementSibling.classList.toggle('show');
+        }
+
+        // Event listeners
+        document.getElementById('industry').addEventListener('change', calculate);
+        document.getElementById('timeline').addEventListener('input', calculate);
+        document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', calculate));
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
